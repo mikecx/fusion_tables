@@ -58,7 +58,7 @@ module GData
           response = super(method, url, body)
         rescue GData::Client::ServerError => e
           if e.response.status_code == 500 and retries > 0
-            sleep_time = 11 - retries 
+            sleep_time = 30
             sleep sleep_time # <= Fusion tables has rate of 5 calls per second. Be nice, get longer
             @session_cookie = e.response.headers['set-cookie']          
             return self.make_request(method, url, body, retries - 1)
